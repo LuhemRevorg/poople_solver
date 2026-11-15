@@ -42,15 +42,22 @@ void bfs(const std::unordered_set<std::string> &words, const std::string& target
     	cout << "\n";
 }
 
+void update_file(const std::unordered_set<string> &words, const std::string &rm) {
+
+	ofstream on("words.txt");
+	
+	for (auto &word : words) {
+		if (word != rm) on << word << std::endl;
+	}
+	on.close();
+}
+
 int main(int argc, char** argv) {
 
 	const std::string TARGET = "POOP";
 	const std::string SOURCE = argv[1];
-	
 	std::unordered_set<std::string> words;
-	read_file(words);
+	read_file(words);	
+	if (SOURCE == "rm") {update_file(words, argv[2]); return 0;}	
 	bfs(words, TARGET, SOURCE);
-	
 }
-
-
